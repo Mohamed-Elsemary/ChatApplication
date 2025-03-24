@@ -3,8 +3,6 @@ const router = express.Router();
 const auth = require('../Inter/authentication');
 const Message = require('../models/message');
 const Friend = require('../models/friend');
-
-
 // Send a message
 router.post('/', auth, async (req, res) => {
   const { receiverId, content } = req.body;
@@ -13,7 +11,6 @@ router.post('/', auth, async (req, res) => {
   if (!receiverId || !content) {
     return res.status(400).json({ message: 'Receiver ID and content are required' });
   }
-  
   try {
     // Check if they are friends
     const friends = await Friend.getFriends(senderId);
@@ -53,14 +50,12 @@ router.get('/conversation/:friendId', auth, async (req, res) => {
         .filter(msg => msg.receiver_id === userId && !msg.read)
         .map(msg => Message.markAsRead(msg.id, userId))
     );
-    
     res.json(messages);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 // Poll for new messages
 router.get('/new/:lastMessageId?', auth, async (req, res) => {
   const lastMessageId = req.params.lastMessageId || 0;
@@ -74,22 +69,5 @@ router.get('/new/:lastMessageId?', auth, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// Mark a message as read
-router.post('/read/:messageId', auth, async (req, res) => {
-  const { messageId } = req.params;
-  const userId = req.user.id;
-  
-  try {
-    const changes = await Message.markAsRead(messageId, userId);
-    if (changes === 0) {
-      return res.status(404).json({ message: 'Message not found or not authorized' });
-    }
-    res.json({ message: 'Message marked as read' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
 module.exports = router;
+

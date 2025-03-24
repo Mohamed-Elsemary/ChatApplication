@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../Inter/authentication');
 const Friend = require('../models/friend');
-
-
 // Send a friend request
 router.post('/request', auth, async (req, res) => {
   const { receiverId } = req.body;
@@ -24,7 +22,6 @@ router.post('/request', auth, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 // Get pending friend requests
 router.get('/requests', auth, async (req, res) => {
   try {
@@ -36,7 +33,6 @@ router.get('/requests', auth, async (req, res) => {
   }
 });
 
-// Accept a friend request
 router.post('/accept/:requestId', auth, async (req, res) => {
   const { requestId } = req.params;
   
@@ -76,5 +72,4 @@ router.post('/reject/:requestId', auth, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 module.exports = router;
