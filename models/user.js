@@ -21,16 +21,6 @@ class User {
     });
   }
 
-  static findByUsername(username) {
-    return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM users WHERE username = ?';
-      db.get(sql, [username], (err, row) => {
-        if (err) return reject(err);
-        resolve(row);
-      });
-    });
-  }
-
   static findById(id) {
     return new Promise((resolve, reject) => {
       const sql = 'SELECT id, username, created_at FROM users WHERE id = ?';
@@ -40,7 +30,15 @@ class User {
       });
     });
   }
-
+    static findByUsername(username) {
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM users WHERE username = ?';
+            db.get(sql, [username], (err, row) => {
+                if (err) return reject(err);
+                resolve(row);
+            });
+        });
+    }
   static searchUsers(query, userId) {
     return new Promise((resolve, reject) => {
       const sql = `

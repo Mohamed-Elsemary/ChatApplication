@@ -32,21 +32,7 @@ class Friend {
     });
   }
 
-  static getPendingRequests(userId) {
-    return new Promise((resolve, reject) => {
-      const sql = `
-        SELECT fr.id, fr.sender_id, u.username as sender_name, fr.created_at
-        FROM friend_requests fr
-        JOIN users u ON fr.sender_id = u.id
-        WHERE fr.receiver_id = ? AND fr.status = 'pending'
-      `;
-      db.all(sql, [userId], (err, rows) => {
-        if (err) return reject(err);
-        resolve(rows);
-      });
-    });
-  }
-
+ 
   static acceptRequest(requestId, userId) {
     return new Promise((resolve, reject) => {
       // Begin transaction
@@ -102,7 +88,20 @@ class Friend {
       });
     });
   }
-
+    static getPendingRequests(userId) {
+        return new Promise((resolve, reject) => {
+            const sql = `
+        SELECT fr.id, fr.sender_id, u.username as sender_name, fr.created_at
+        FROM friend_requests fr
+        JOIN users u ON fr.sender_id = u.id
+        WHERE fr.receiver_id = ? AND fr.status = 'pending'
+      `;
+            db.all(sql, [userId], (err, rows) => {
+                if (err) return reject(err);
+                resolve(rows);
+            });
+        });
+    }
   static rejectRequest(requestId, userId) {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE friend_requests SET status = "rejected" WHERE id = ? AND receiver_id = ?';
