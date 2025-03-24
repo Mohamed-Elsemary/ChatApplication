@@ -1,5 +1,4 @@
 const db = require('../configuration/database');
-
 class Friend {
   static createRequest(senderId, receiverId) {
     return new Promise((resolve, reject) => {

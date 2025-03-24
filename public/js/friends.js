@@ -1,21 +1,17 @@
-// Friends functionality
-
-// Load user's friends
 async function loadFriends() {
     try {
-      const response = await authFetch('/api/friends');
-      if (!response.ok) throw new Error('Failed to load friends');
-      
-      const friends = await response.json();
-      displayFriends(friends);
-      return friends;
+        const response = await authFetch('/api/friends');
+        if (!response.ok) throw new Error('Failed to load friends');
+
+        const friends = await response.json();
+        displayFriends(friends);
+        return friends;
     } catch (err) {
-      console.error('Error loading friends:', err);
-      return [];
+        console.error('Error loading friends:', err);
+        return [];
     }
-  }
-  
-  // Display friends in the sidebar
+}
+ // Display friends in the sidebar
   function displayFriends(friends) {
     const friendsList = document.getElementById('friends-list');
     
