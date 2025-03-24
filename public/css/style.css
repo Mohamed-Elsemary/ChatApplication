@@ -42,12 +42,39 @@ body {
     width: 320px;
     background: rgba(35, 35, 40, 0.85);
     color: #fff;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .user-info {
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0; /* Prevents this section from shrinking */
+}
+
+/* This will be the scrollable container for the friends list */
+.friends-section {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+    .friends-section::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .friends-section::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+
+    .friends-section::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+.friends-list {
+    list-style: none;
 }
 
 .friend-item {
@@ -76,6 +103,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* Prevents avatar from shrinking */
 }
 
     .friend-avatar img {
@@ -87,6 +115,7 @@ body {
 
 .friend-info {
     flex: 1;
+    min-width: 0; /* Allows text to be truncated */
 }
 
 .friend-name {
@@ -99,6 +128,9 @@ body {
         font-weight: 500;
         color: white;
         margin-right: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 .friend-status {
@@ -107,6 +139,7 @@ body {
     border-radius: 50%;
     display: inline-block;
     margin-left: 5px;
+    flex-shrink: 0; /* Prevents status dot from shrinking */
 }
 
 .status-online {
@@ -174,9 +207,10 @@ body {
     }
 
 .message-form-container {
-    padding: 10px 15px;
+    padding: 15px 20px;
     display: flex;
     border-top: 1px solid #eee;
+    flex-shrink: 0; /* Prevents input area from shrinking */
 }
 
 #message-input {
@@ -185,10 +219,6 @@ body {
     border: 1px solid #ddd;
     border-radius: 30px;
     font-size: 14px;
-    min-height: 50px;
-    resize: vertical;
-    max-height: 150px;
-    font-family: inherit;
 }
 
     #message-input:focus {
@@ -208,7 +238,6 @@ body {
     font-weight: 600;
     letter-spacing: 1px;
     font-size: 14px;
-    align-self: flex-end;
 }
 
     .btn-send:hover {
@@ -229,80 +258,27 @@ body {
     margin-right: 15px;
 }
 
-/* For the auth styles */
-.auth-container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 100%;
-    max-width: 400px;
+/* Search section if you have one */
+.friend-search {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0; /* Prevents this section from shrinking */
+    display: flex;
+    justify-content: flex-end; /* Moves input to the right */
 }
 
-    .auth-container h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #6A3093;
+    .friend-search input {
+        width: 80%;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
     }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-
-    .form-group input {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 14px;
-    }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #6A3093;
+        .friend-search input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
-
-.btn {
-    display: inline-block;
-    background: #6A3093;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background 0.3s;
-    width: 100%;
-    font-weight: 600;
-}
-
-    .btn:hover {
-        background: #5a3081;
-    }
-
-.error {
-    color: white;
-    background-color: #e74c3c;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-top: 10px;
-    text-align: center;
-}
-
-.success {
-    color: white;
-    background-color: #2ecc71;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-top: 10px;
-    text-align: center;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -319,4 +295,15 @@ body {
     .message {
         max-width: 85%;
     }
+}
+.friend-search button {
+    background: #6A3093;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 400;
+    transition: background 0.3s ease;
 }
