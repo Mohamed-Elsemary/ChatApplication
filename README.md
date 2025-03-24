@@ -21,7 +21,7 @@ This web-based chat application provides a simple yet effective platform for tex
 - **Authentication**: JWT (JSON Web Tokens) with bcryptjs for password hashing
 - **HTTP Management**: Native HTTP protocol with polling for message updates
 
-## Installation
+## Installation and Running 
 
 1. Clone this repository:
    ```
@@ -35,6 +35,7 @@ This web-based chat application provides a simple yet effective platform for tex
 
 3. Start the server:
    ```
+   npm init
    npm start
    ```
 
