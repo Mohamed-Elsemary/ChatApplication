@@ -51,7 +51,16 @@ router.post('/accept/:requestId', auth, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
+// Get friends list
+router.get('/', auth, async (req, res) => {
+    try {
+        const friends = await Friend.getFriends(req.user.id);
+        res.json(friends);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 // Reject a friend request
 router.post('/reject/:requestId', auth, async (req, res) => {
   const { requestId } = req.params;
@@ -64,17 +73,6 @@ router.post('/reject/:requestId', auth, async (req, res) => {
     if (err.message === 'Request not found') {
       return res.status(404).json({ message: 'Request not found' });
     }
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// Get friends list
-router.get('/', auth, async (req, res) => {
-  try {
-    const friends = await Friend.getFriends(req.user.id);
-    res.json(friends);
-  } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });

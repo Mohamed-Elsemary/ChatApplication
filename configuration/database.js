@@ -36,7 +36,19 @@ function initDatabase() {
         FOREIGN KEY (receiver_id) REFERENCES users (id)
       )
     `);
-
+      // Create messages table
+      db.run(`
+      CREATE TABLE IF NOT EXISTS messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sender_id INTEGER NOT NULL,
+        receiver_id INTEGER NOT NULL,
+        content TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        read INTEGER DEFAULT 0,
+        FOREIGN KEY (sender_id) REFERENCES users (id),
+        FOREIGN KEY (receiver_id) REFERENCES users (id)
+      )
+    `);
     // Create friends table
     db.run(`
       CREATE TABLE IF NOT EXISTS friends (
@@ -49,19 +61,7 @@ function initDatabase() {
       )
     `);
 
-    // Create messages table
-    db.run(`
-      CREATE TABLE IF NOT EXISTS messages (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        sender_id INTEGER NOT NULL,
-        receiver_id INTEGER NOT NULL,
-        content TEXT NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        read INTEGER DEFAULT 0,
-        FOREIGN KEY (sender_id) REFERENCES users (id),
-        FOREIGN KEY (receiver_id) REFERENCES users (id)
-      )
-    `);
+    
   });
 }
 
