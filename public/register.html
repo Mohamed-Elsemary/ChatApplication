@@ -51,7 +51,7 @@
         const confirmPassword = document.getElementById('confirm-password').value;
         const messageEl = document.getElementById('message');
         
-        // Check if passwords match
+          // !== Checks for strict inequality
         if (password !== confirmPassword) {
           messageEl.textContent = 'Passwords do not match';
           messageEl.classList.add('error');

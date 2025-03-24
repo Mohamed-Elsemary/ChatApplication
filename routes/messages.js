@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../Middleware/authentication');
 const Message = require('../models/message');
 const Friend = require('../models/friend');
-const auth = require('../Middleware/authentication');
+
 
 // Send a message
 router.post('/', auth, async (req, res) => {

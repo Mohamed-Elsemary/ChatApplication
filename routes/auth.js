@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../Middleware/authentication');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const auth = require('../Middleware/authentication');
+
 
 const JWT_SECRET = 'your_jwt_secret'; // In production, use environment variables
 

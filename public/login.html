@@ -38,7 +38,6 @@
         })
         .catch(err => console.error('Authentication check error:', err));
       
-      // Handle login form submission
       document.getElementById('login-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -65,8 +64,6 @@
           
           // Store token in localStorage
           localStorage.setItem('token', data.token);
-          
-          // Redirect to chat
           window.location.href = '/chat.html';
         } catch (err) {
           console.error('Login error:', err);
