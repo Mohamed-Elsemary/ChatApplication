@@ -53,7 +53,7 @@ native-chat/
 │   └── index.html    # Main HTML file
 ├── routes/           # Express route handlers
 ├── models/           # Database models
-├── middleware/       # Authentication middleware
+├── Inter/            # Authentication middleware
 ├── server.js         # Main application entry point
 ├── package.json      # Project dependencies
 └── README.md         # This file
